@@ -19,7 +19,9 @@ let dataStore = (state = initState, action) => {
         case DELETE_ITEM:
             return {
                 ...state,
-                data: [...state.data.filter((item, index) => index !== action.index)]
+                data: [...state.data.filter((item, index) => 
+                    action.index.indexOf(index) === -1
+                )]
             }
             
         default:

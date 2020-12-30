@@ -1,68 +1,99 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Table } from "antd";
+import { useState } from "react";
 
-function Table(props) {
-    return (
-        <table className="table">
-            <thead>
-                <tr className='header-table table-row'>
-                    <td className="header-table-item table-item">Дата покупки</td>
-                    <td className="header-table-item table-item">Киоск</td>
-                    <td className="header-table-item table-item">Тип</td>
-                    <td className="header-table-item table-item">Статус оплаты</td>
-                    <td className="header-table-item table-item">Оплата</td>
-                    <td className="header-table-item table-item">Сумма</td>
-                    <td className="header-table-item table-item">Кол-во товара</td>
-                    <td className="header-table-item table-item">Товары</td>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    props.data.map((item, i) => {
-                        return <TableItem key={i} data={item} deleteItem={props.deleteItem} index={i}/>
-                    })
-                }
-            </tbody>
-        </table>
-    );
-}
+function TableComponent(props) {
 
-const TableItem = ({data, deleteItem, index}) => {
-    const sum = data.pays.reduce((acc, n) => acc + n.sum, 0);
-    const productCount = data.positions.reduce((acc, n) => acc + n.quantity, 0);
+    const columns = [
+        {
+            title: 'Дата покупки',
+            dataIndex: 'dateReg',
+            key: 'dateReg',
+        },
+        {
+            title: 'Киоск',
+            dataIndex: 'kioskName',
+            key: 'kioskName',
+        },
+        {
+            title: 'Тип',
+            dataIndex: 'chequeType',
+            key: 'chequeType',
+        },
+        {
+            title: 'Статус оплаты',
+            dataIndex: 'status',
+            key: 'status',
+        },
+        {
+            title: 'Оплата',
+            dataIndex: 'pay',
+            key: 'pay',
+        },
+        {
+            title: 'Сумма',
+            dataIndex: 'sum',
+            key: 'sum',
+        },
+        {
+            title: 'Кол-во товара',
+            dataIndex: 'productCount',
+            key: 'productCount',
+        },
+        {
+            title: 'Товары',
+            dataIndex: 'productsName',
+            key: 'productsName',
+        },
+    ];
+
+    const data = props.data.map((item, index) => {
+        const sum = item.pays.reduce((acc, n) => acc + n.sum, 0);
+        const productCount = item.positions.reduce((acc, n) => acc + n.quantity, 0);
+        return {
+            key: index,
+            dateReg: item.dateReg,
+            kioskName: item.kioskName,
+            chequeType: item.chequeType ? 'Возврат' : 'Продажа',
+            status: sum === item.sum ? 'Оплачено' : sum ? 'Недоплата' : 'Нет оплаты',
+            pay: sum,
+            sum: item.sum,
+            productCount: productCount,
+            productsName: item.positions.map((itm, i) => {
+                if (i < item.positions.length - 1)
+                    return itm.name + ', '
+                return itm.name
+            })
+        }
+    });
+
+
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+    const onSelectChange = item => {
+        setSelectedRowKeys(item);
+    };
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange
+    };
+
     return (
-        <tr className='main-table table-row'>
-            <td className="table-item">{data.dateReg}</td>
-            <td className="table-item">{data.kioskName}</td>
-            <td className="table-item">
-                {data.chequeType ? 'Возврат' : 'Продажа'}
-            </td>
-            <td className="main-table-item table-item">{
-                sum === data.sum ? 'Оплачено' : sum ? 'Недоплата' : 'Нет оплаты'
-                }
-            </td>
-            <td className="table-item">{sum}
-            </td>
-            <td className="table-item">{data.sum}</td>
-            <td className="table-item">{productCount}
-            </td>
-            <td className="table-item">{
-                [...data.positions].map((item, i) => {
-                    if (i < data.positions.length - 1)
-                        return item.name + ', '
-                    return item.name
-                })
-            }
-            </td>
-            <td className='delete' 
-            icon={["fal", "coffee"]}
-            onClick={() => {
-                let result = window.confirm('Вы уверены что хотите удалить элемент?');
-                console.log(result)
-                result && deleteItem(index)
-            }}><FontAwesomeIcon icon={faTimes} /></td>
-        </tr>
+        <div className="table">
+            <Button danger
+                type='primary'
+                className={!selectedRowKeys.length ? 'disable' : 'active'}
+                onClick={() => {
+                    props.deleteItem(selectedRowKeys);
+                    setSelectedRowKeys([]);
+                }}
+            >Удалить выбранные чеки</Button>
+            <Table
+                rowSelection={rowSelection}
+                dataSource={data}
+                columns={columns} />
+        </div>
     )
 }
 
-export default Table;
+export default TableComponent;

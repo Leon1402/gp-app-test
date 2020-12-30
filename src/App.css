@@ -1,9 +1,12 @@
+@import '~antd/dist/antd.css';
+
 .App {
   padding-top: 30px;
   text-align: center;
 }
 
 .table {
+  position: relative;
   margin: auto;
   max-width: 1000px;
 }
@@ -18,12 +21,16 @@
   font-weight: bold;
 }
 
-.delete {
-  padding: 10px;
-  cursor: pointer;
-  transition: .2s all;
+.main {
+  text-align: center;
 }
 
-.delete:hover {
-  transform: scale(1.1);
-} 
+.active {
+  position: absolute;
+  z-index: 100;
+  transform: translate(10px, -10px)
+}
+
+.disable {
+  display: none;
+}
