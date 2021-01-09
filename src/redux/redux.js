@@ -3,6 +3,7 @@ import data from '../data/data.json'
 
 const SET_DATA = 'SET_DATA';
 const DELETE_ITEM = 'DELETE_ITEM';
+const ADD_NEW_CHEQUE = 'ADD_NEW_CHEQUE';
 
 let initState = {
     initialized: false
@@ -23,7 +24,13 @@ let dataStore = (state = initState, action) => {
                     action.index.indexOf(index) === -1
                 )]
             }
-            
+        case ADD_NEW_CHEQUE:
+            return {
+                ...state,
+                data: [
+                    ...state.data, action.data
+                ] 
+            }
         default:
             return state;
     }
@@ -37,6 +44,10 @@ export const getDataFromJson = () => {
 
 export const deleteItem = index => {
     return {type: DELETE_ITEM, index}
+}
+
+export const addNewCheque = data => {
+    return {type: ADD_NEW_CHEQUE, data}
 }
 
 export default store;

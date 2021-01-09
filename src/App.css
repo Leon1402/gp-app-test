@@ -28,9 +28,14 @@
 .active {
   position: absolute;
   z-index: 100;
-  transform: translate(10px, -10px)
+  top: -5px;
+  left: 0;
 }
 
 .disable {
   display: none;
+}
+
+.input:not(:last-child) {
+  margin-bottom: 10px;
 }

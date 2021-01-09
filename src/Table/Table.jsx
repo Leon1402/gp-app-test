@@ -46,12 +46,29 @@ function TableComponent(props) {
         },
     ];
 
+    const convertDate = date => {
+        let convertedDate = new Date(date);
+        let year = convertedDate.getFullYear();
+        let month = convertedDate.getMonth() + 1;
+        let day = convertedDate.getDate();
+        let hour = convertedDate.getHours()
+        let minutes = convertedDate.getMinutes();
+        let second = convertedDate.getSeconds();
+
+        month = month < 10 ? '0' + month :  month;
+        day = day < 10 ? '0' + day :  day;
+        minutes = minutes < 10 ? '0' + minutes :  minutes;
+        second = second < 10 ? '0' + second :  second;
+
+        return (`${day}.${month}.${year}, ${hour}:${minutes}:${second}`)
+    }
+
     const data = props.data.map((item, index) => {
         const sum = item.pays.reduce((acc, n) => acc + n.sum, 0);
         const productCount = item.positions.reduce((acc, n) => acc + n.quantity, 0);
         return {
             key: index,
-            dateReg: item.dateReg,
+            dateReg: convertDate(item.dateReg),
             kioskName: item.kioskName,
             chequeType: item.chequeType ? 'Возврат' : 'Продажа',
             status: sum === item.sum ? 'Оплачено' : sum ? 'Недоплата' : 'Нет оплаты',
