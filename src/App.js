@@ -17,13 +17,12 @@ function App(props) {
   const onCreate = (values) => {
     let newCheque = {
       chequeType: values.chequeType[0],
-      dateReg: values.dateReg.format('YYYY-MM-DDTH:mm:ss'),
+      dateReg: values.dateReg.toDate(),
       kioskName: values.kioskName[0],
-      sum: values.sum,
-      pays: [{sum: values.pays}],
+      sum: values.sum.toFixed(2) * 100,
+      pays: [{sum: values.pays.toFixed(2) * 100}],
       positions: [{name: values.positions, quantity: 1}]
     }
-    console.log(newCheque)
     setVisible(false);
     props.addNewCheque(newCheque);
   };

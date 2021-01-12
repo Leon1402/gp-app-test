@@ -28,7 +28,7 @@ function ModalAddNew({ visible, onCreate, onCancel }) {
             onCreate(values);
           })
           .catch((info) => {
-            console.log('нееверные данные:', info);
+            alert('нееверные данные:');
           });
       }}
     >
@@ -49,12 +49,12 @@ function ModalAddNew({ visible, onCreate, onCancel }) {
 
         <Form.Item name="pays" label="Оплата"
           rules={[{ required: true, message: 'Введите оплаченную сумму!' }]}>
-          <InputNumber min={0} step={1} />
+          <InputNumber defaultValue={0} min={0} step={0.01} />
         </Form.Item>
 
         <Form.Item name="sum" label="Сумма"
           rules={[{ required: true, message: 'Введите сумму товара!' }]}>
-          <InputNumber min={0} step={1} />
+          <InputNumber defaultValue={0} min={0} step={0.01} />
         </Form.Item>
 
         <Form.Item name="positions" label="Товары"

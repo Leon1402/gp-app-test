@@ -48,6 +48,9 @@ function TableComponent(props) {
 
     const convertDate = date => {
         let convertedDate = new Date(date);
+        console.log('1 ', date)
+        console.log('2', convertedDate)
+
         let year = convertedDate.getFullYear();
         let month = convertedDate.getMonth() + 1;
         let day = convertedDate.getDate();
@@ -66,14 +69,21 @@ function TableComponent(props) {
     const data = props.data.map((item, index) => {
         const sum = item.pays.reduce((acc, n) => acc + n.sum, 0);
         const productCount = item.positions.reduce((acc, n) => acc + n.quantity, 0);
+        const status =() => {
+            if (sum === item.sum || sum > item.sum)
+                return 'Оплачено';
+            else if (sum < item.sum)
+                return 'Недоплата';
+            else return 'Нет оплаты'; 
+        }
         return {
             key: index,
             dateReg: convertDate(item.dateReg),
             kioskName: item.kioskName,
             chequeType: item.chequeType ? 'Возврат' : 'Продажа',
-            status: sum === item.sum ? 'Оплачено' : sum ? 'Недоплата' : 'Нет оплаты',
-            pay: sum,
-            sum: item.sum,
+            status: status(),
+            pay: sum / 100,
+            sum: item.sum / 100,
             productCount: productCount,
             productsName: item.positions.map((itm, i) => {
                 if (i < item.positions.length - 1)
