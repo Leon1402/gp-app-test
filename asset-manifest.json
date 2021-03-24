@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/gp-app-test/static/css/main.bca9f899.chunk.css",
+    "main.js": "/gp-app-test/static/js/main.f7e7c4a2.chunk.js",
+    "main.js.map": "/gp-app-test/static/js/main.f7e7c4a2.chunk.js.map",
+    "runtime-main.js": "/gp-app-test/static/js/runtime-main.44c4b0ef.js",
+    "runtime-main.js.map": "/gp-app-test/static/js/runtime-main.44c4b0ef.js.map",
+    "static/css/2.b544de60.chunk.css": "/gp-app-test/static/css/2.b544de60.chunk.css",
+    "static/js/2.ff31a69d.chunk.js": "/gp-app-test/static/js/2.ff31a69d.chunk.js",
+    "static/js/2.ff31a69d.chunk.js.map": "/gp-app-test/static/js/2.ff31a69d.chunk.js.map",
+    "static/js/3.a2e075ee.chunk.js": "/gp-app-test/static/js/3.a2e075ee.chunk.js",
+    "static/js/3.a2e075ee.chunk.js.map": "/gp-app-test/static/js/3.a2e075ee.chunk.js.map",
+    "index.html": "/gp-app-test/index.html",
+    "static/css/2.b544de60.chunk.css.map": "/gp-app-test/static/css/2.b544de60.chunk.css.map",
+    "static/css/main.bca9f899.chunk.css.map": "/gp-app-test/static/css/main.bca9f899.chunk.css.map",
+    "static/js/2.ff31a69d.chunk.js.LICENSE.txt": "/gp-app-test/static/js/2.ff31a69d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.44c4b0ef.js",
+    "static/css/2.b544de60.chunk.css",
+    "static/js/2.ff31a69d.chunk.js",
+    "static/css/main.bca9f899.chunk.css",
+    "static/js/main.f7e7c4a2.chunk.js"
+  ]
+}
